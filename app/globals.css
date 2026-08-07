@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --color-cream: #ffffff;
+  --color-ink: #0e2a2e;
+  --color-teal: #12a396;
+  --color-teal-deep: #0c3d3a;
+  --color-coral: #974e3a;
+  --color-mint: #e5f5f2;
+  --color-line: #d7e6e3;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream: var(--color-cream);
+  --color-ink: var(--color-ink);
+  --color-teal: var(--color-teal);
+  --color-teal-deep: var(--color-teal-deep);
+  --color-coral: var(--color-coral);
+  --color-mint: var(--color-mint);
+  --color-line: var(--color-line);
+  --font-display: var(--font-sora);
+  --font-script: var(--font-script);
+  --font-body: var(--font-worksans);
+  --font-mono: var(--font-jbmono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+.font-mono-data {
+  font-family: var(--font-mono), monospace;
+}
+
+.availability-calendar.rdp-root {
+  --rdp-accent-color: var(--color-teal-deep);
+  --rdp-accent-background-color: var(--color-mint);
+  --rdp-today-color: var(--color-coral);
+  --rdp-day-width: 42px;
+  --rdp-day-height: 42px;
+  --rdp-day_button-width: 38px;
+  --rdp-day_button-height: 38px;
+  --rdp-day_button-border-radius: 0.7rem;
+  --rdp-day_button-border: none;
+  --rdp-nav_button-width: 2rem;
+  --rdp-nav_button-height: 2rem;
+  --rdp-disabled-opacity: 0.35;
+  --rdp-outside-opacity: 0.4;
+  font-family: var(--font-mono), monospace;
+  width: 100%;
+}
+
+.availability-calendar .rdp-month_caption {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--color-ink);
+}
+
+.availability-calendar .rdp-weekday {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-ink) 55%, transparent);
+}
+
+.availability-calendar .rdp-day_button:hover:not([disabled]) {
+  background-color: var(--color-mint);
+}
+
+.availability-calendar .rdp-day_button:focus-visible {
+  outline: 2px solid var(--color-coral);
+  outline-offset: 2px;
+}
+
+.availability-calendar .day-available .rdp-day_button {
+  background-color: var(--color-mint);
+  color: var(--color-teal-deep);
+  font-weight: 600;
+}
+
+.availability-calendar .day-booked .rdp-day_button {
+  background-color: transparent;
+  color: color-mix(in srgb, var(--color-ink) 35%, transparent);
+  text-decoration: line-through;
+}
+
+.availability-calendar .rdp-months {
+  justify-content: space-between;
+}
+
+@media (max-width: 640px) {
+  .availability-calendar .rdp-months {
+    justify-content: center;
+  }
+  .availability-calendar .rdp-month:nth-of-type(2) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

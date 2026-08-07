@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum BookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model BookingRequest {
+  id            String        @id @default(cuid())
+  practiceName  String
+  contactName   String
+  email         String
+  phone         String
+  software      String?
+  requestedDates String       @db.Text
+  message       String?       @db.Text
+  status        BookingStatus @default(PENDING)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  clinicName  String
+  authorName  String
+  quote       String   @db.Text
+  rating      Int      @default(5)
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model SiteContent {
+  key       String   @id
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}

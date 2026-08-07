@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jaspreet Kaur — OHT Locum Website
 
-## Getting Started
+Next.js + MySQL site for booking locum/casual relief shifts. Public marketing page plus an admin dashboard for managing booking requests, testimonials, and editable content (rates, compliance text, SEO/meta).
 
-First, run the development server:
+## Stack
+- Next.js 16 (App Router, TypeScript), Tailwind CSS
+- Prisma ORM + MySQL (via `@prisma/adapter-mariadb`, works against any MySQL-compatible host)
+- NextAuth v5 (Credentials) for the single admin login
+- Google Calendar API (service account, read-only) for live availability
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Local setup
+1. `npm install`
+2. Copy `.env.example` to `.env` and fill in `DATABASE_URL`, `NEXTAUTH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`
+3. `npx prisma db push` — applies the schema directly (the hosting DB user doesn't have CREATE DATABASE rights needed for shadow-DB migrations, so use `db push`, not `migrate dev`)
+4. `npm run db:seed` — creates the admin user and default content rows (re-running is safe; it won't overwrite content you've already edited)
+5. `npm run dev`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Admin
+Sign in at `/admin/login` with `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env`. From the dashboard you can:
+- Approve/reject booking requests
+- Add/approve/delete testimonials
+- Edit rates, services, compliance placeholders, and SEO/meta fields — changes appear on the public page immediately, no redeploy needed
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Change the seeded admin password before going live.**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Google Calendar (live availability)
+1. Create a Google Cloud service account with the Calendar API enabled
+2. Share your Google Calendar with the service account's email, read-only access
+3. Set `GOOGLE_SERVICE_ACCOUNT_KEY` (the full service account JSON, stringified) and `GOOGLE_CALENDAR_ID` (usually your Google account email) in `.env`
+4. Any day with an event on that calendar shows as booked; everything else shows as available
 
-## Learn More
+Until these are set, the Availability section shows a friendly fallback message pointing visitors to the booking form.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+Same `DATABASE_URL` and other env vars work unchanged on Vercel or a VPS/shared host running `next start`. If you hit connection exhaustion against a shared MySQL host from a serverless deploy, try appending `?connection_limit=1` to `DATABASE_URL`.
