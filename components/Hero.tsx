@@ -11,22 +11,14 @@ export default function Hero({
 }) {
   return (
     <section className="mx-auto grid max-w-5xl grid-cols-1 gap-12 px-6 py-16 sm:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-      <div className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-80 sm:w-80 lg:mx-0">
-        <div
-          aria-hidden
-          className="absolute inset-0 -rotate-6 rounded-[2.5rem] bg-teal"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 rotate-6 rounded-[2.5rem] bg-mint"
-        />
+      <div className="relative mx-auto h-96 w-full max-w-sm sm:h-[32rem] lg:mx-0">
         <Image
-          src="/front-doctor.png"
+          src="/front-doctor-full.png"
           alt={`${siteName}, Oral Health Therapist`}
           fill
-          sizes="(min-width: 640px) 320px, 288px"
+          sizes="(min-width: 1024px) 384px, (min-width: 640px) 384px, 320px"
           priority
-          className="relative object-contain object-bottom scale-110"
+          className="object-contain object-bottom"
         />
       </div>
 
