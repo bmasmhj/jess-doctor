@@ -16,7 +16,7 @@ export default function Compliance({
   siteName: string;
 }) {
   return (
-    <section id="compliance" className="py-20">
+    <section id="compliance" className="pt-20">
       <div className="mx-auto max-w-5xl px-6">
         <h2 className="font-display text-3xl tracking-tight text-ink sm:text-4xl">
           Ready to walk in: compliance &amp; credentials
@@ -58,9 +58,9 @@ export default function Compliance({
               </div>
             </div>
           </div>
-          <div className="relative order-2 mx-auto h-96 w-full max-w-md sm:h-[28rem] lg:mx-0 lg:h-[32rem]">
+          <div className="relative order-2 mx-auto h-full w-full max-w-md sm:h-[28rem] lg:mx-0 lg:h-[42rem]">
             <Image
-              src="/side-doctor.png"
+              src="/side-doctor-transparent.png"
               alt={`${siteName} reviewing patient notes`}
               fill
               sizes="(min-width: 1024px) 448px, 384px"
