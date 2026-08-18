@@ -14,7 +14,7 @@ export default function Hero({
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 px-6 pt-16 sm:pt-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div className="relative mx-auto aspect-[848/1231] w-full max-w-xs overflow-hidden  sm:max-w-sm lg:mx-0">
           <Image
-            src="/front-doctor-transparent.png"
+            src="/front-doctor-handcross.png"
             alt={`${siteName}, Oral Health Therapist`}
             fill
             sizes="(min-width: 1024px) 384px, (min-width: 640px) 384px, 320px"
